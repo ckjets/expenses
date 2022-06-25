@@ -5,3 +5,11 @@ nodemonを用いてホットリロードを可能にしてます。
 $ npm run dev
 $ rs
 ```
+
+http://localhost:3000/
+
+
+## Heroku
+```
+https://express-app-expenses.herokuapp.com/
+```
