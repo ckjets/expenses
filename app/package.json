@@ -3,9 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "webpack --config ./webpack/prod.config.js",
-    "start": "npm run build && node ./bin/www",
-    "dev": "nodemon -L"
+    "start": "ts-node ./bin/www.ts",
+    "dev": "nodemon ./bin/www.ts"
   },
   "dependencies": {
     "@line/bot-sdk": "^7.5.0",
