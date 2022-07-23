@@ -42,12 +42,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 /** line webhook */
-app.post('/webhook', middleware(config), (req: Request, res: Response) => {
-  Promise
-    .all(req.body.events.map(handleEvent))
-    .then((result) => res.json(result));
-});
-const client = new Client(config);
+app.use(middleware(config))
+app.post('/webhook', (req: Request, res: Response) => {
+  // Promise
+  //   .all(req.body.events.map(handleEvent))
+  //   .then((result) => res.json(result));
+  res.json(req.body.events) // req.body will be webhook event object
+})
+const client = new Client(config)
 
 const handleEvent = (event: WebhookEvent) => {
   if (event.type !== 'message' || event.message.type !== 'text') {
