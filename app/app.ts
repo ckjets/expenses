@@ -51,83 +51,30 @@ app.use('/', indexRouter)
 /** @see https://line.github.io/line-bot-sdk-nodejs/guide/webhook.html#error-handling */
 app.use(middleware(config))
 
-
-// app.post('/webhook', (req: Request, res: Response) => {
-//   console.log('===webhook===')
-//   console.log('===req===')
-//   console.log(req)
-//   console.log('===res===')
-//   console.log(res)
-//   // Promise
-//   //   .all(req.body.events.map(handleEvent))
-//   //   .then((result) => res.json(result))
-//   res.json(req.body.events) // req.body will be webhook event object
-// })
-// const client = new Client(config)
-// const handleEvent = (event: WebhookEvent) => {
-//   if (event.type !== 'message' || event.message.type !== 'text') {
-//     return Promise.resolve(null)
-//   }
-
-//   return client.replyMessage(event.replyToken, {
-//     type: 'text',
-//     text: event.message.text
-//   })
-// }
-
-
-app.post("/webhook", function (req: Request, res: Response) {
-  console.log("/webhook!!!!")
-  res.send("HTTP POST request sent to the webhook URL!")
-  // ユーザーがボットにメッセージを送った場合、返信メッセージを送る
-  if (req.body.events[0].type === "message") {
-    // 文字列化したメッセージデータ
-    const dataString = JSON.stringify({
-      replyToken: req.body.events[0].replyToken,
-      messages: [
-        {
-          "type": "text",
-          "text": "Hello, user"
-        },
-        {
-          "type": "text",
-          "text": "May I help you?"
-        }
-      ]
-    })
-
-    // リクエストヘッダー
-    const headers = {
-      "Content-Type": "application/json",
-      "Authorization": "Bearer " + config.channelAccessToken
-    }
-
-    // リクエストに渡すオプション
-    const webhookOptions = {
-      "hostname": "api.line.me",
-      "path": "/v2/bot/message/reply",
-      "method": "POST",
-      "headers": headers,
-      "body": dataString
-    }
-
-    // リクエストの定義
-    const request = https.request(webhookOptions, (res: Response) => {
-      res.on("data", (d) => {
-        process.stdout.write(d)
-      })
-    })
-
-    // エラーをハンドル
-    request.on("error", (err: any) => {
-      console.error(err)
-    })
-
-    // データを送信
-    request.write(dataString)
-    request.end()
-  }
+/**
+ * @see https://line.github.io/line-bot-sdk-nodejs/getting-started/basic-usage.html#synopsis
+ */
+app.post('/webhook', (req: Request, res: Response) => {
+  console.log('===webhook===')
+  console.log('===req===',req)
+  console.log('===res===',res)
+  Promise
+    .all(req.body.events.map(handleEvent))
+    .then((result) => res.json(result))
+  res.json(req.body.events) // req.body will be webhook event object
 })
+
+const client = new Client(config)
+const handleEvent = (event: WebhookEvent) => {
+  if (event.type !== 'message' || event.message.type !== 'text') {
+    return Promise.resolve(null)
+  }
+
+  return client.replyMessage(event.replyToken, {
+    type: 'text',
+    text: event.message.text
+  })
+}
 
 
 // catch 404 and forward to error handler

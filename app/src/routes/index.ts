@@ -8,3 +8,4 @@ router.get('/', function (req: Request, res: Response, next) {
 })
 
 module.exports = router
+// export default router
