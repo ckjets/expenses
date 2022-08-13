@@ -76,7 +76,8 @@ app.use(middleware(config))
 // }
 
 
-app.post("/webhook", function(req, res) {
+app.post("/webhook", function (req: Request, res: Response) {
+  console.log("/webhook!!!!")
   res.send("HTTP POST request sent to the webhook URL!")
   // ユーザーがボットにメッセージを送った場合、返信メッセージを送る
   if (req.body.events[0].type === "message") {
@@ -111,14 +112,14 @@ app.post("/webhook", function(req, res) {
     }
 
     // リクエストの定義
-    const request = https.request(webhookOptions, (res) => {
+    const request = https.request(webhookOptions, (res: Response) => {
       res.on("data", (d) => {
         process.stdout.write(d)
       })
     })
 
     // エラーをハンドル
-    request.on("error", (err) => {
+    request.on("error", (err: any) => {
       console.error(err)
     })
 
