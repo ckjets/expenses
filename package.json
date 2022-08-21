@@ -2,7 +2,7 @@
     "name": "express-app-expenses",
     "version": "1.0.0",
     "scripts": {
-      "start": "ts-node app/bin/www.ts",
+      "start": "node app/dist/index.js",
       "heroku-postbuild": "npm i --prefix=app"
     },
     "engines": {
