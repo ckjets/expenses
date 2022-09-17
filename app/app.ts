@@ -34,13 +34,16 @@ app.use('/', indexRouter);
 // globally
 // app.use(middleware(config))
 
+console.log("test....................")
 // or directly with handler
 app.post('/webhook', middleware(config), (req: any, res: any) => {
   console.log("TEST")
   console.log("config", config)
   req.body.events // webhook event objects
   req.body.destination // user ID of the bot (optional)
+  console.log("res", res)
 })
+
 
 // catch 404 and forward to error handler
 app.use(function(req: any, res: any, next: any) {
