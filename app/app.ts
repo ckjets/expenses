@@ -35,6 +35,7 @@ app.use('/', indexRouter);
 // app.use(middleware(config))
 
 console.log("test....................")
+console.log("config from app", config)
 // or directly with handler
 app.post('/webhook', middleware(config), (req: any, res: any) => {
   console.log("TEST")
@@ -51,7 +52,8 @@ app.use(function(req: any, res: any, next: any) {
 });
 
 // error handler
-app.use(function(err: any, req: any, res: any, next: any) {
+app.use(function (err: any, req: any, res: any, next: any) {
+  console.log("err!:", err)
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

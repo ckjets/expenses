@@ -8,7 +8,7 @@ const config = {
     channelSecret: process.env.CHANNEL_SECRET
 };
 
-console.log("config!!", config) // 2022-09-17: 値とれてる
+// console.log("config!!", config) // 2022-09-17: 値とれてる
 
 router.get('/', function(req: Request, res: Response, next) {
     res.send('hello world!!!')
