@@ -17,6 +17,8 @@ router.get('/test', function(req: Request, res: Response, next) {
 });
 
 router.post('/webhook', line.middleware(config), (req: Request, res: Response) => {
+    console.log("========================")
+    console.log("config", config)
     Promise
       .all(req.body.events.map(handleEvent))
       .then((result) => res.json(result));
