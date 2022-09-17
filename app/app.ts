@@ -36,6 +36,8 @@ app.use('/', indexRouter);
 
 // or directly with handler
 app.post('/webhook', middleware(config), (req: any, res: any) => {
+  console.log("TEST")
+  console.log("config", config)
   req.body.events // webhook event objects
   req.body.destination // user ID of the bot (optional)
 })
